@@ -371,47 +371,51 @@ public class RocketPromiseParser {
         // 1.27 游戏测试 四篇，给一样的扶持系数，预跑一段时间，看数据效果
 //        promiseList.add(new RocketPromise("60085666000000000101d19f", 100000, 10.0f, "2021-01-27","2021-02-01"));
 //        promiseList.add(new RocketPromise("6008570d0000000001003fc8", 100000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("60094b7a0000000001001107", 100000, 20.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("601101610000000001000122", 100000, 20.0f, "2021-01-27","2021-02-01"));
+        promiseList.add(new RocketPromise("60094b7a0000000001001107", 1000000, 20.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("601101610000000001000122", 1000000, 20.0f, "2021-01-27","2021-02-10"));
 
         // 巫师第5篇笔记
         promiseList.add(new RocketPromise("600a6b7300000000010028bf", 5000000, 20.0f, "2021-01-27","2021-02-10"));
 
         // 1.28 游戏测试 第5篇，给一样的扶持系数，预跑一段时间，看数据效果
-        promiseList.add(new RocketPromise("601132f6000000000100b0f7", 100000, 20.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("601265ec000000000100a155", 100000, 20.0f, "2021-01-27","2021-02-01"));
+        promiseList.add(new RocketPromise("601132f6000000000100b0f7", 1000000, 20.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("601265ec000000000100a155", 1000000, 20.0f, "2021-01-27","2021-02-10"));
 
         // 1.28 美妆活动 测试
-        promiseList.add(new RocketPromise("5ff2f61e00000000010074f9", 1000000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("60059d43000000000101d4cd", 1000000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("600e974b000000000101d22b", 1000000, 10.0f, "2021-01-27","2021-02-01"));
+        promiseList.add(new RocketPromise("5ff2f61e00000000010074f9", 1000000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("60059d43000000000101d4cd", 1000000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("600e974b000000000101d22b", 1000000, 10.0f, "2021-01-27","2021-02-10"));
 
         // 1.28 vlog品类
-        promiseList.add(new RocketPromise("600d39f8000000000100b9a0", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("600d3bb000000000010049e2", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("60091b0a000000000100221b", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("5fe6e2550000000001002ccb", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("600d073f000000000100873a", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("6007953a0000000001009adf", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("6002d4df000000000101f6b4", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("5ffaa9a80000000001002e70", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("5ff5378c000000000100aa7d", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("5fe36063000000000101d99b", 10000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("5fdf61fe000000000100b4bb", 10000, 10.0f, "2021-01-27","2021-02-01"));
+        promiseList.add(new RocketPromise("600d39f8000000000100b9a0", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("600d3bb000000000010049e2", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("60091b0a000000000100221b", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("5fe6e2550000000001002ccb", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("600d073f000000000100873a", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("6007953a0000000001009adf", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("6002d4df000000000101f6b4", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("5ffaa9a80000000001002e70", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("5ff5378c000000000100aa7d", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("5fe36063000000000101d99b", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("5fdf61fe000000000100b4bb", 100000, 10.0f, "2021-01-27","2021-02-10"));
 
 
         // 1.29巫师小推第6篇
-        promiseList.add(new RocketPromise("60113284000000000100ae57", 3000000, 20.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("60113284000000000100ae57", 5000000, 20.0f, "2021-01-27","2021-02-10"));
 
         // 1.30 游戏
-        promiseList.add(new RocketPromise("60138ab800000000010071f4", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("60138ab800000000010071f4", 1000000, 10.0f, "2021-01-27","2021-02-10"));
 
         // 1.30 长板与建鹏
-        promiseList.add(new RocketPromise("60112dbc0000000001006cc0", 100000, 10.0f, "2021-01-27","2021-02-10"));
-        promiseList.add(new RocketPromise("600fc590000000000101d73e", 100000, 10.0f, "2021-01-27","2021-02-10"));
-        promiseList.add(new RocketPromise("600e1ad3000000000101cfd0", 100000, 10.0f, "2021-01-27","2021-02-10"));
-        promiseList.add(new RocketPromise("6007a0520000000001008545", 100000, 10.0f, "2021-01-27","2021-02-10"));
-        promiseList.add(new RocketPromise("6006ce280000000001002de3", 100000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("60112dbc0000000001006cc0", 1000000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("600fc590000000000101d73e", 1000000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("600e1ad3000000000101cfd0", 1000000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("6007a0520000000001008545", 1000000, 10.0f, "2021-01-27","2021-02-10"));
+        promiseList.add(new RocketPromise("6006ce280000000001002de3", 1000000, 10.0f, "2021-01-27","2021-02-10"));
+
+
+        // 2.3 巫师
+        promiseList.add(new RocketPromise("6018d17c000000000100b0f9", 10000, 10.0f, "2021-02-03","2021-02-04"));
 
 
 
