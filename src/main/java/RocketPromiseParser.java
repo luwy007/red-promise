@@ -415,7 +415,7 @@ public class RocketPromiseParser {
 
 
         // 2.3 巫师
-        promiseList.add(new RocketPromise("6018d17c000000000100b0f9", 2000000, 15.0f, "2021-02-03","2021-02-10"));
+        promiseList.add(new RocketPromise("6018d17c000000000100b0f9", 2000000, 20.0f, "2021-02-03","2021-02-10"));
 
         // 2.3 美妆博主andy，前期一直被审核ban
         promiseList.add(new RocketPromise("6017ca0400000000010012a0", 100000, 30.0f, "2021-02-03","2021-02-10"));
@@ -425,7 +425,7 @@ public class RocketPromiseParser {
         promiseList.add(new RocketPromise("6017a059000000000100a91c", 2000000, 10.0f, "2021-02-03","2021-02-10"));
         promiseList.add(new RocketPromise("6017a247000000000100b392", 2000000, 10.0f, "2021-02-03","2021-02-10"));
         promiseList.add(new RocketPromise("6017a71300000000010059c1", 2000000, 10.0f, "2021-02-03","2021-02-10"));
-        promiseList.add(new RocketPromise("6018cfc9000000000101c154", 2000000, 10.0f, "2021-02-03","2021-02-10"));
+        promiseList.add(new RocketPromise("6018cfc9000000000101c154", 2000000, 15.0f, "2021-02-03","2021-02-10"));
         promiseList.add(new RocketPromise("601a2a96000000000100b151", 2000000, 10.0f, "2021-02-03","2021-02-10"));
         promiseList.add(new RocketPromise("601b6a06000000000100911b", 2000000, 10.0f, "2021-02-03","2021-02-10"));
 
