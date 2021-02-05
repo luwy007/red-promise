@@ -366,20 +366,20 @@ public class RocketPromiseParser {
 //        promiseList.add(new RocketPromise("5ffd9e2e0000000001008c0b", 2000000, 5, "2021-01-20","2021-01-31"));
 
         // 1.23 测试
-        promiseList.add(new RocketPromise("6008fa5e00000000010089c1", 2000000, 6.0f, "2021-01-20","2021-01-31"));
+//        promiseList.add(new RocketPromise("6008fa5e00000000010089c1", 2000000, 6.0f, "2021-01-20","2021-01-31"));
 
         // 1.27 游戏测试 四篇，给一样的扶持系数，预跑一段时间，看数据效果
 //        promiseList.add(new RocketPromise("60085666000000000101d19f", 100000, 10.0f, "2021-01-27","2021-02-01"));
 //        promiseList.add(new RocketPromise("6008570d0000000001003fc8", 100000, 10.0f, "2021-01-27","2021-02-01"));
-        promiseList.add(new RocketPromise("60094b7a0000000001001107", 1000000, 20.0f, "2021-01-27","2021-02-10"));
-        promiseList.add(new RocketPromise("601101610000000001000122", 1000000, 20.0f, "2021-01-27","2021-02-10"));
+//        promiseList.add(new RocketPromise("60094b7a0000000001001107", 1000000, 20.0f, "2021-01-27","2021-02-10"));
+//        promiseList.add(new RocketPromise("601101610000000001000122", 1000000, 20.0f, "2021-01-27","2021-02-10"));
 
         // 巫师第5篇笔记
         promiseList.add(new RocketPromise("600a6b7300000000010028bf", 5000000, 20.0f, "2021-01-27","2021-02-10"));
 
         // 1.28 游戏测试 第5篇，给一样的扶持系数，预跑一段时间，看数据效果
-        promiseList.add(new RocketPromise("601132f6000000000100b0f7", 1000000, 20.0f, "2021-01-27","2021-02-10"));
-        promiseList.add(new RocketPromise("601265ec000000000100a155", 1000000, 20.0f, "2021-01-27","2021-02-10"));
+//        promiseList.add(new RocketPromise("601132f6000000000100b0f7", 1000000, 20.0f, "2021-01-27","2021-02-10"));
+//        promiseList.add(new RocketPromise("601265ec000000000100a155", 1000000, 20.0f, "2021-01-27","2021-02-10"));
 
         // 1.28 美妆活动 测试
         promiseList.add(new RocketPromise("5ff2f61e00000000010074f9", 1000000, 10.0f, "2021-01-27","2021-02-10"));
@@ -404,7 +404,7 @@ public class RocketPromiseParser {
         promiseList.add(new RocketPromise("60113284000000000100ae57", 5000000, 20.0f, "2021-01-27","2021-02-10"));
 
         // 1.30 游戏
-        promiseList.add(new RocketPromise("60138ab800000000010071f4", 1000000, 10.0f, "2021-01-27","2021-02-10"));
+//        promiseList.add(new RocketPromise("60138ab800000000010071f4", 1000000, 10.0f, "2021-01-27","2021-02-10"));
 
         // 1.30 长板与建鹏
         promiseList.add(new RocketPromise("60112dbc0000000001006cc0", 1000000, 10.0f, "2021-01-27","2021-02-10"));
@@ -415,8 +415,19 @@ public class RocketPromiseParser {
 
 
         // 2.3 巫师
-        promiseList.add(new RocketPromise("6018d17c000000000100b0f9", 10000, 10.0f, "2021-02-03","2021-02-04"));
+        promiseList.add(new RocketPromise("6018d17c000000000100b0f9", 2000000, 15.0f, "2021-02-03","2021-02-10"));
 
+        // 2.3 美妆博主andy，前期一直被审核ban
+        promiseList.add(new RocketPromise("6017ca0400000000010012a0", 100000, 30.0f, "2021-02-03","2021-02-10"));
+
+
+        // 2.4 游戏新作
+        promiseList.add(new RocketPromise("6017a059000000000100a91c", 2000000, 10.0f, "2021-02-03","2021-02-10"));
+        promiseList.add(new RocketPromise("6017a247000000000100b392", 2000000, 10.0f, "2021-02-03","2021-02-10"));
+        promiseList.add(new RocketPromise("6017a71300000000010059c1", 2000000, 10.0f, "2021-02-03","2021-02-10"));
+        promiseList.add(new RocketPromise("6018cfc9000000000101c154", 2000000, 10.0f, "2021-02-03","2021-02-10"));
+        promiseList.add(new RocketPromise("601a2a96000000000100b151", 2000000, 10.0f, "2021-02-03","2021-02-10"));
+        promiseList.add(new RocketPromise("601b6a06000000000100911b", 2000000, 10.0f, "2021-02-03","2021-02-10"));
 
 
 
