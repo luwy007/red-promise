@@ -15,6 +15,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -218,35 +219,9 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println(getPartitionId("600a6b7300000000010028bf"));
-
-
-        System.out.println("60094b7a0000000001001107 :" + getPartitionId("60094b7a0000000001001107f"));
-        System.out.println("601101610000000001000122 :" + getPartitionId("601101610000000001000122f"));
-        System.out.println("600a6b7300000000010028bf :" + getPartitionId("600a6b7300000000010028bff"));
-        System.out.println("601132f6000000000100b0f7 :" + getPartitionId("601132f6000000000100b0f7f"));
-        System.out.println("601265ec000000000100a155 :" + getPartitionId("601265ec000000000100a155f"));
-        System.out.println("5ff2f61e00000000010074f9 :" + getPartitionId("5ff2f61e00000000010074f9f"));
-        System.out.println("60059d43000000000101d4cd :" + getPartitionId("60059d43000000000101d4cdf"));
-        System.out.println("600e974b000000000101d22b :" + getPartitionId("600e974b000000000101d22bf"));
-        System.out.println("600d39f8000000000100b9a0 :" + getPartitionId("600d39f8000000000100b9a0f"));
-        System.out.println("600d3bb000000000010049e2 :" + getPartitionId("600d3bb000000000010049e2f"));
-        System.out.println("60091b0a000000000100221b :" + getPartitionId("60091b0a000000000100221bf"));
-        System.out.println("5fe6e2550000000001002ccb :" + getPartitionId("5fe6e2550000000001002ccbf"));
-        System.out.println("600d073f000000000100873a :" + getPartitionId("600d073f000000000100873af"));
-        System.out.println("6007953a0000000001009adf :" + getPartitionId("6007953a0000000001009adff"));
-        System.out.println("6002d4df000000000101f6b4 :" + getPartitionId("6002d4df000000000101f6b4f"));
-        System.out.println("5ffaa9a80000000001002e70 :" + getPartitionId("5ffaa9a80000000001002e70f"));
-        System.out.println("5ff5378c000000000100aa7d :" + getPartitionId("5ff5378c000000000100aa7df"));
-        System.out.println("5fe36063000000000101d99b :" + getPartitionId("5fe36063000000000101d99bf"));
-        System.out.println("5fdf61fe000000000100b4bb :" + getPartitionId("5fdf61fe000000000100b4bbf"));
-        System.out.println("60113284000000000100ae57 :" + getPartitionId("60113284000000000100ae57f"));
-        System.out.println("60138ab800000000010071f4 :" + getPartitionId("60138ab800000000010071f4f"));
-        System.out.println("60112dbc0000000001006cc0 :" + getPartitionId("60112dbc0000000001006cc0f"));
-        System.out.println("600fc590000000000101d73e :" + getPartitionId("600fc590000000000101d73ef"));
-        System.out.println("600e1ad3000000000101cfd0 :" + getPartitionId("600e1ad3000000000101cfd0f"));
-        System.out.println("6007a0520000000001008545 :" + getPartitionId("6007a0520000000001008545f"));
-        System.out.println("6006ce280000000001002de3 :" + getPartitionId("6006ce280000000001002de3f"));
+//        System.out.println(getPartitionId("600a6b7300000000010028bf"));
+        float a = 0.1234f;
+        System.out.println(String.format("%.2f", a));
     }
 
     private static void smoothScoreList(List<Double> scoreList, int pos) {
