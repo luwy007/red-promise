@@ -219,9 +219,8 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
 
-//        System.out.println(getPartitionId("600a6b7300000000010028bf"));
-        float a = 0.1234f;
-        System.out.println(String.format("%.2f", a));
+        System.out.println(String.format("%.1f", Math.min(Math.max(10, -1.0), 1.0)));
+        System.out.println(getPartitionId("601bd63a000000000101d061"));
     }
 
     private static void smoothScoreList(List<Double> scoreList, int pos) {
