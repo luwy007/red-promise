@@ -103,26 +103,34 @@ public class RocketPromiseParser {
 
 
         // 2.8 游戏陈二狗
-        promiseList.add(new RocketPromise("600d4773000000000100bedb", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("6013e475000000000101e43c", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("6012850e000000000101f4ce", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("6015305a000000000101ed1f", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("601fa8e3000000002103f6c6", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("601d1f260000000001002c95", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("601bbc530000000001006fc8", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("601a7ddf0000000001000f8f", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("6017e63500000000010032f4", 100000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("600d4773000000000100bedb", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("6013e475000000000101e43c", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("6012850e000000000101f4ce", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("6015305a000000000101ed1f", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("601fa8e3000000002103f6c6", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("601d1f260000000001002c95", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("601bbc530000000001006fc8", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("601a7ddf0000000001000f8f", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("6017e63500000000010032f4", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+
+        promiseList.add(new RocketPromise("6021104b000000002103fc2a", 300000, 10.0f, "2021-02-10", "2021-02-15"));
+        promiseList.add(new RocketPromise("602237cc0000000001028f60", 300000, 10.0f, "2021-02-08", "2021-02-15"));
 
         // 2.8 游戏奶牛
-        promiseList.add(new RocketPromise("601a3467000000000101dc29", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("60168b52000000000101eb01", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("6013e50a00000000010076e1", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("601181d400000000010035ac", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("600e9ab300000000010003cf", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("600aa7700000000001007453", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("6006e89f000000000101fbad", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("6020025e00000000010047a5", 100000, 10.0f, "2021-02-08", "2021-02-15"));
-        promiseList.add(new RocketPromise("601d02d2000000000101d1b8", 100000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("601a3467000000000101dc29", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("60168b52000000000101eb01", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("6013e50a00000000010076e1", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("601181d400000000010035ac", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("600e9ab300000000010003cf", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("600aa7700000000001007453", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("6006e89f000000000101fbad", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("6020025e00000000010047a5", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("601d02d2000000000101d1b8", 300000, 10.0f, "2021-02-08", "2021-02-15"));
+
+        promiseList.add(new RocketPromise("602149670000000001004f75", 300000, 10.0f, "2021-02-10", "2021-02-15"));
+        promiseList.add(new RocketPromise("602249f1000000000101ee41", 300000, 10.0f, "2021-02-10", "2021-02-15"));
+        promiseList.add(new RocketPromise("60224ce200000000010056a5", 300000, 10.0f, "2021-02-10", "2021-02-15"));
+        promiseList.add(new RocketPromise("602291390000000001005ad4", 300000, 10.0f, "2021-02-10", "2021-02-15"));
 
         // 测试召回效率
         promiseList.add(new RocketPromise("60127db90000000001000dae", 1000, 5.0f, "2021-02-08", "2021-02-15"));
@@ -171,6 +179,9 @@ public class RocketPromiseParser {
 
         // 2.10 小马哥第三篇
         promiseList.add(new RocketPromise("60222b57000000000100544c", 4000000, 15.0f, "2021-02-10", "2021-02-15"));
+
+        // 2.10 巫师第8篇
+        promiseList.add(new RocketPromise("60220d9d0000000001001657", 2000000, 20.0f, "2021-02-10", "2021-02-15"));
 
 
         JSONObject json = new JSONObject();
