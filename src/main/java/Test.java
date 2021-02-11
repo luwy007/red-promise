@@ -219,8 +219,26 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println(String.format("%.1f", Math.min(Math.max(10, -1.0), 1.0)));
+        String vec = "-92498.5 -97.63243 3526.3896 -3112.762 -3561.878 4745.362 -1150.6008 -2207.1138 6829.631 6572.057 33049.45 -7264.6675 2128.0981 2948.426 1834.9282 -4964.88 1897.9221 8185.802 3839.664 -4339.947 2438.7278 2264.47 -412.867 1076.9329 3583.17 -6157.709 -3733.4746 1830.0728 10462.317 -6392.454 2938.7888 6529.1445 2622.7563 3462.9272 -66808.99 37203.934 664.0617 2820.0562 8598.066 350.45874 -3499.487 1091.2638 -420.7529 3672.9114 -1990.8722 5733.5073 -6879.174 333.96744 3265.8708 3050.2485 -5242.282 -1454.151 2192.6265 3516.8188 3931.5208 -939.6567 977.9078 -2027.6943 -3105.0781 3267.4111 399.74377 -766.1372 1122.7257 -1547.6099 ";
+        changeNoteVectorStr(vec);
+
         System.out.println(getPartitionId("601bd63a000000000101d061"));
+    }
+
+    private static void changeNoteVectorStr(String vectorStr) {
+        String[] vector = vectorStr.split(" ");
+        List<String> componentList = new ArrayList<>();
+        for (String component : vector) {
+            float value = 0;
+            try {
+                value = Math.max(Math.min(Float.valueOf(component), 9999.0f), -9999.0f);
+            } catch (Exception e) {
+            }
+            componentList.add(String.valueOf(value));
+        }
+
+        System.out.println(String.join(" ", componentList));
+
     }
 
     private static void smoothScoreList(List<Double> scoreList, int pos) {
