@@ -99,7 +99,7 @@ public class RocketPromiseParser {
         promiseList.add(new RocketPromise("601bd63a000000000101d061", 100000, 10.0f, "2021-02-03", "2021-02-18"));
 
         // 2.8 泛兴趣 小马哥
-        promiseList.add(new RocketPromise("601f8f540000000001001668", 6000000, 15.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("601f8f540000000001001668", 6000000, 20.0f, "2021-02-08", "2021-02-15"));
 
 
         // 2.8 游戏陈二狗
@@ -148,7 +148,7 @@ public class RocketPromiseParser {
         promiseList.add(new RocketPromise("601fd89a000000002103ca93", 1000000, 25.0f, "2021-02-08", "2021-02-15"));
 
         // 2.9 小马哥 第二篇
-        promiseList.add(new RocketPromise("6020e89900000000010098cc", 6000000, 15.0f, "2021-02-08", "2021-02-15"));
+        promiseList.add(new RocketPromise("6020e89900000000010098cc", 6000000, 20.0f, "2021-02-08", "2021-02-15"));
 
         // pr 3篇内容 还为了测试，博主内容，是在作者维度被限流，or怎样
         promiseList.add(new RocketPromise("6020d39f000000002103cbb7", 100000, 10.0f, "2021-02-08", "2021-02-15"));
@@ -184,13 +184,13 @@ public class RocketPromiseParser {
         promiseList.add(new RocketPromise("60053315000000000100a336", 200000, 10.0f, "2021-02-10", "2021-02-15"));
 
         // 2.10 小马哥第三篇
-        promiseList.add(new RocketPromise("60222b57000000000100544c", 4000000, 15.0f, "2021-02-10", "2021-02-15"));
+        promiseList.add(new RocketPromise("60222b57000000000100544c", 5000000, 25.0f, "2021-02-10", "2021-02-15"));
 
         // 2.10 巫师第8篇
-        promiseList.add(new RocketPromise("60220d9d0000000001001657", 4000000, 20.0f, "2021-02-10", "2021-02-15"));
+        promiseList.add(new RocketPromise("60220d9d0000000001001657", 6000000, 25.0f, "2021-02-10", "2021-02-15"));
 
         // 2.11 小马哥第四篇
-        promiseList.add(new RocketPromise("6023780a00000000010062c9", 4000000, 15.0f, "2021-02-11", "2021-02-20"));
+        promiseList.add(new RocketPromise("6023780a00000000010062c9", 5000000, 25.0f, "2021-02-11", "2021-02-20"));
 
 
         JSONObject json = new JSONObject();
