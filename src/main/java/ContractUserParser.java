@@ -190,6 +190,22 @@ public class ContractUserParser {
 
 
     private static List<Contract> loadContractList() {
+
+        // 2.19解约名单
+//        5a4d85cd11be1017de457fc8
+//        5600fb99a75c953a4670fa16
+//        5754db6250c4b410104d6d48
+//        5825ab465e87e75b13960668
+//        5adb307b4eacab5fb1348974
+//        57f331cf50c4b4798aa73e71
+//        59659bfc6a6a69050b475969
+//        5c7a824e000000001102df80
+//        5b6299474eacab15a04d3f4c
+//        5a9cf56c4eacab1ba7348613
+//        589884c450c4b47d39a710ec
+//        5623efc9f53ee075d272bcaa
+
+
         List<Contract> contractList = new ArrayList<>();
         contractList.add(new Contract("default_user", Contract.EndDate.AUG, Contract.QuotaLevel.DEFAULT));
         contractList.add(new Contract("5a52cc7111be1053a77bb537", Contract.EndDate.AUG, Contract.QuotaLevel.SHOULDER));
@@ -198,10 +214,10 @@ public class ContractUserParser {
         contractList.add(new Contract("5b62fbcd4eacab4754d780ac", Contract.EndDate.AUG, Contract.QuotaLevel.SHOULDER));
         contractList.add(new Contract("5a7ef5db4eacab544e374f2c", Contract.EndDate.AUG, Contract.QuotaLevel.SHOULDER));
         contractList.add(new Contract("5732bdf582ec390aff193608", Contract.EndDate.AUG, Contract.QuotaLevel.HEAD));
-        contractList.add(new Contract("5adb307b4eacab5fb1348974", Contract.EndDate.AUG, Contract.QuotaLevel.SHOULDER));
+//        contractList.add(new Contract("5adb307b4eacab5fb1348974", Contract.EndDate.AUG, Contract.QuotaLevel.SHOULDER));
         contractList.add(new Contract("58e045255e87e75c40e7d9a1", Contract.EndDate.AUG, Contract.QuotaLevel.SHOULDER));
-        contractList.add(new Contract("5623efc9f53ee075d272bcaa", Contract.EndDate.AUG, Contract.QuotaLevel.WAIST));
-        contractList.add(new Contract("5a9cf56c4eacab1ba7348613", Contract.EndDate.AUG, Contract.QuotaLevel.WAIST));
+//        contractList.add(new Contract("5623efc9f53ee075d272bcaa", Contract.EndDate.AUG, Contract.QuotaLevel.WAIST));
+//        contractList.add(new Contract("5a9cf56c4eacab1ba7348613", Contract.EndDate.AUG, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("5b1c349c11be10068c2919be", Contract.EndDate.AUG, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("5555f82862a60c1f3c591a01", Contract.EndDate.AUG, Contract.QuotaLevel.HEAD));
         contractList.add(new Contract("5ba70ac7b7329a00013fb5ee", Contract.EndDate.AUG, Contract.QuotaLevel.HEAD));
@@ -228,17 +244,18 @@ public class ContractUserParser {
         contractList.add(new Contract("55840220e4b1cf4ee29ae114", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
         contractList.add(new Contract("56b0152082ec3920b191d137", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("5a48a6ace8ac2b43cc8c0079", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
-        contractList.add(new Contract("5600fb99a75c953a4670fa16", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
-        contractList.add(new Contract("5825ab465e87e75b13960668", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
+//        contractList.add(new Contract("5600fb99a75c953a4670fa16", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
+//        contractList.add(new Contract("5825ab465e87e75b13960668", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
         contractList.add(new Contract("55e96f24a75c950acd3358b8", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
-        contractList.add(new Contract("5a4d85cd11be1017de457fc8", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
-        contractList.add(new Contract("589884c450c4b47d39a710ec", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
+        // 2.19解约
+//        contractList.add(new Contract("5a4d85cd11be1017de457fc8", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
+//        contractList.add(new Contract("589884c450c4b47d39a710ec", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("5b134f7011be10055272e9b1", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("582a22cb82ec3928b46bf382", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
-        contractList.add(new Contract("57f331cf50c4b4798aa73e71", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
+//        contractList.add(new Contract("57f331cf50c4b4798aa73e71", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("59683f415e87e776a98957d7", Contract.EndDate.SEP, Contract.QuotaLevel.HEAD));
         contractList.add(new Contract("5570ec7f5894465eb632ddc4", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
-        contractList.add(new Contract("5b6299474eacab15a04d3f4c", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
+//        contractList.add(new Contract("5b6299474eacab15a04d3f4c", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
 //        contractList.add(new Contract("566b95eca40e185506b254e6", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("5b2dc0444eacab24d7c893ab", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         //20200914
@@ -256,13 +273,13 @@ public class ContractUserParser {
         contractList.add(new Contract("5da941ac0000000001002eac", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
         contractList.add(new Contract("575e71e35e87e71b9c162c62", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("58b003e882ec393f0e92ea52", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
-        contractList.add(new Contract("5754db6250c4b410104d6d48", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
+//        contractList.add(new Contract("5754db6250c4b410104d6d48", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("558b8670484fb67efbb98ad4", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("5ab0fe8411be1049acf5a7dc", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
         contractList.add(new Contract("55263b88b203d93617b793e2", Contract.EndDate.SEP, Contract.QuotaLevel.HEAD));
         contractList.add(new Contract("55658f1ba75c957db825b62e", Contract.EndDate.SEP, Contract.QuotaLevel.HEAD));
         contractList.add(new Contract("55f2462a589446756d99b3dc", Contract.EndDate.SEP, Contract.QuotaLevel.HEAD));
-        contractList.add(new Contract("59659bfc6a6a69050b475969", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
+//        contractList.add(new Contract("59659bfc6a6a69050b475969", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
         contractList.add(new Contract("5a5eb0be11be105e04c4219c", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
         contractList.add(new Contract("5aeafe47e8ac2b1705f28619", Contract.EndDate.SEP, Contract.QuotaLevel.WAIST));
         contractList.add(new Contract("56bed0096a6a691b923ef748", Contract.EndDate.SEP, Contract.QuotaLevel.HEAD));
@@ -279,7 +296,7 @@ public class ContractUserParser {
 
         // 1102
         contractList.add(new Contract("5af529c14eacab4dad70a133", Contract.EndDate.NOV, Contract.QuotaLevel.HEAD));
-        contractList.add(new Contract("5c7a824e000000001102df80", Contract.EndDate.NOV, Contract.QuotaLevel.SHOULDER));
+//        contractList.add(new Contract("5c7a824e000000001102df80", Contract.EndDate.NOV, Contract.QuotaLevel.SHOULDER));
         //11.8不录
         contractList.add(new Contract("598cb9e45e87e703113a4b42", Contract.EndDate.SEP, Contract.QuotaLevel.SHOULDER));
 
