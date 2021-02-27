@@ -119,6 +119,21 @@ public class DataAnalysis {
             return numerator / denominator;
         }
 
+
+        double calWilsonRatio(double numerator, double denominator) {
+            if (numerator * denominator == 0 || denominator < numerator) {
+                return 0.f;
+            }
+            double z = 1.96;
+            boolean isUpper = false;
+            double n = denominator;
+            double p = numerator / denominator;
+            double signal = isUpper ? 1.0 : -1.0;
+            float score = (float) ((p + z * z / (2.f * n) + signal * z * Math.sqrt((p * (1.0f - p) + z * z / (4.f * n)) / n)) / (1.f + z * z / n));
+            return score;
+        }
+
+
     }
 
 
@@ -207,16 +222,166 @@ public class DataAnalysis {
             addPerformance(performance, performanceMap.get(reason));
         }
 
-
         return mergedPermanceMap;
     }
+
+    enum ANA_LEVEL {
+        BAD(0),
+        NOT_BAD(1),
+        GOOD(2);
+
+        ANA_LEVEL(int level) {
+            this.level = level;
+        }
+
+        int level;
+    }
+
+    private String analysis(Map<REASON, Performance> test, Map<REASON, Performance> control) {
+        StringBuilder sb = new StringBuilder();
+        // 粉丝群体判定
+        Performance testP = test.get(REASON.FOLLOW);
+        Performance controlP = control.get(REASON.FOLLOW);
+        sb.append(String.format("\n\n================ %s ===================\n\n", "粉丝流量"));
+        ANA_LEVEL cesImpLevel = analysis("follow", sb, testP, controlP, ACTION.CES_IMPRESSION);
+        sb.append("\n\n");
+        switch (cesImpLevel) {
+            case BAD:
+            case NOT_BAD:
+            case GOOD:
+                ANA_LEVEL clickImpLevel = analysis("follow", sb, testP, controlP, ACTION.CLICK_IMPRESSION);
+                ANA_LEVEL cesClickLevel = analysis("follow", sb, testP, controlP, ACTION.CES_CLICK);
+                sb.append("\n\n");
+                ANA_LEVEL collectClickLevel = analysis("follow", sb, testP, controlP, ACTION.COLLECT_CLICK);
+                ANA_LEVEL commentClickLevel = analysis("follow", sb, testP, controlP, ACTION.COMMENT_CLICK);
+                ANA_LEVEL likeClickLevel = analysis("follow", sb, testP, controlP, ACTION.LIKE_CLICK);
+                ANA_LEVEL shareClickLevel = analysis("follow", sb, testP, controlP, ACTION.SHARE_CLICK);
+//                ANA_LEVEL followClickLevel = analysis("follow", sb, testP, controlP, ACTION.FOLLOW_CLICK);
+            default:
+                break;
+        }
+        // 扶持流量
+//         testP = test.get(REASON.ROCKET);
+//         controlP = control.get(REASON.ROCKET);
+//        cesImpLevel = analysis("rocket", sb, testP, controlP, ACTION.CES_IMPRESSION);
+//        sb.append("\n\n");
+//        switch (cesImpLevel){
+//            case BAD:
+//            case NOT_BAD:
+//            case GOOD:
+//                ANA_LEVEL clickImpLevel = analysis("rocket", sb, testP, controlP, ACTION.CLICK_IMPRESSION);
+//                ANA_LEVEL cesClickLevel = analysis("rocket", sb, testP, controlP, ACTION.CES_CLICK);
+//                sb.append("\n\n");
+//                ANA_LEVEL collectClickLevel = analysis("rocket", sb, testP, controlP, ACTION.COLLECT_CLICK);
+//                ANA_LEVEL commentClickLevel = analysis("rocket", sb, testP, controlP, ACTION.COMMENT_CLICK);
+//                ANA_LEVEL likeClickLevel = analysis("rocket", sb, testP, controlP, ACTION.LIKE_CLICK);
+//                ANA_LEVEL shareClickLevel = analysis("rocket", sb, testP, controlP, ACTION.SHARE_CLICK);
+//                ANA_LEVEL followClickLevel = analysis("rocket", sb, testP, controlP, ACTION.FOLLOW_CLICK);
+//            default:break;
+//        }
+
+        // 自然流量
+        sb.append(String.format("\n\n================ %s ===================\n\n", "自然流量"));
+        testP = test.get(REASON.ORGANIC);
+        controlP = control.get(REASON.ORGANIC);
+        cesImpLevel = analysis("ORGANIC", sb, testP, controlP, ACTION.CES_IMPRESSION);
+        sb.append("\n\n");
+        switch (cesImpLevel) {
+            case BAD:
+            case NOT_BAD:
+            case GOOD:
+                ANA_LEVEL clickImpLevel = analysis("ORGANIC", sb, testP, controlP, ACTION.CLICK_IMPRESSION);
+                switch (clickImpLevel) {
+                    case BAD:
+                        sb.append(" 非粉丝点击率差，可以尝试优化封面、标题、选题\n");
+                        break;
+                    case NOT_BAD:
+//                        sb.append(" 非粉丝点击率差，可以尝试优化封面、标题、选题");
+                        break;
+                    case GOOD:
+//                        sb.append(" 非粉丝点击率差，可以尝试优化封面、标题、选题");
+                        break;
+                    default:
+                }
+                ANA_LEVEL cesClickLevel = analysis("ORGANIC", sb, testP, controlP, ACTION.CES_CLICK);
+                switch (cesClickLevel) {
+                    case BAD:
+                        sb.append(" ces/click表现不佳，进一步拆分看是哪一项ces行为表现较差\n");
+                        break;
+                    case NOT_BAD:
+                        sb.append(" ces/click表现一般，进一步拆分看，哪一项ces行为还有比较大优化空间\n");
+                        break;
+                    case GOOD:
+                        sb.append(" ces/click表现不错，再接再厉。进一步拆分看，哪一项ces行为还有比较大优化空间\n");
+                        break;
+                    default:
+                }
+                sb.append("\n\n");
+                ANA_LEVEL collectClickLevel = analysis("ORGANIC", sb, testP, controlP, ACTION.COLLECT_CLICK);
+                analysis(collectClickLevel, sb);
+                ANA_LEVEL commentClickLevel = analysis("ORGANIC", sb, testP, controlP, ACTION.COMMENT_CLICK);
+                analysis(commentClickLevel, sb);
+
+                ANA_LEVEL likeClickLevel = analysis("ORGANIC", sb, testP, controlP, ACTION.LIKE_CLICK);
+                analysis(likeClickLevel, sb);
+
+                ANA_LEVEL shareClickLevel = analysis("ORGANIC", sb, testP, controlP, ACTION.SHARE_CLICK);
+                analysis(shareClickLevel, sb);
+
+                ANA_LEVEL followClickLevel = analysis("ORGANIC", sb, testP, controlP, ACTION.FOLLOW_CLICK);
+                analysis(followClickLevel, sb);
+
+            default:
+                break;
+        }
+
+        System.out.println(sb.toString());
+        return sb.toString();
+    }
+
+    private void analysis(ANA_LEVEL level, StringBuilder sb) {
+        switch (level) {
+            case BAD:
+                sb.append("存在较大优化空间 \n");
+                break;
+            case NOT_BAD:
+                break;
+            case GOOD:
+                break;
+        }
+    }
+
+    //
+    private ANA_LEVEL analysis(String source, StringBuilder sb, Performance testP, Performance controlP, ACTION action) {
+
+        double testRatio = testP.calRatio(action);
+        double controlRatio = controlP.calRatio(action);
+        if (testRatio < 0.8 * controlRatio) {
+            sb.append(String.format("%s 表现较差， %.3f, %.3f\n", action, testRatio, controlRatio));
+            return ANA_LEVEL.BAD;
+        } else if (testRatio >= 0.8 * controlRatio && testRatio <= 1.2 * controlRatio) {
+            sb.append(String.format("%s 表现中规中矩， %.3f, %.3f\n", action, testRatio, controlRatio));
+            return ANA_LEVEL.NOT_BAD;
+        } else {
+            sb.append(String.format("%s 表现很好， %.3f, %.3f\n", action, testRatio, controlRatio));
+            return ANA_LEVEL.GOOD;
+        }
+    }
+
 
     public static void main(String[] args) {
         DataAnalysis da = new DataAnalysis();
         Map<String, Performance> specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/data.csv");
         specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/data2.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/wushi.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/wushi economics.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/suozhang.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/fupeng.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/fupeng2.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/wushi japan.csv");
         Map<String, Performance> globalNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/global.csv");
-//        globalNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/data.csv");
+//        globalNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/wushi.csv");
+//        globalNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/wushi eco.csv");
 
 
         Map<REASON, Performance> mergedSpecNotePref = da.mergePerformance(specNotePerf);
@@ -224,19 +389,28 @@ public class DataAnalysis {
 
         List<ACTION> actionList = new ArrayList<>();
         actionList.add(ACTION.CES_IMPRESSION);
-        actionList.add(ACTION.CES_CLICK);
         actionList.add(ACTION.CLICK_IMPRESSION);
-        actionList.add(ACTION.FOLLOW_CLICK);
         actionList.add(ACTION.FOLLOW_IMPRESSION);
-        for(ACTION action: actionList){
+        actionList.add(ACTION.CES_CLICK);
+        actionList.add(ACTION.FOLLOW_CLICK);
+        actionList.add(ACTION.SHARE_CLICK);
+        actionList.add(ACTION.COMMENT_CLICK);
+        actionList.add(ACTION.COLLECT_CLICK);
+        actionList.add(ACTION.LIKE_CLICK);
+
+        da.analysis(mergedSpecNotePref, mergedGlobalNotePref);
+
+
+        for (ACTION action : actionList) {
             System.out.println(String.format("\n\n===================    %s    ===================", action));
             for (REASON reason : mergedSpecNotePref.keySet()) {
                 Performance notePerf = mergedSpecNotePref.get(reason);
                 Performance globalPerf = mergedGlobalNotePref.get(reason);
 //                System.out.println(String.format("reason : %s, \tnote %.0f %f, \tglobal %f", reason, notePerf.getImpression(), notePerf.calRatio(action), globalPerf.calRatio(action)));
-                System.out.println(String.format("reason : %s, \tnote %f, \tglobal %f", reason, notePerf.calRatio(action), globalPerf.calRatio(action)));
+                System.out.println(String.format("%s, \ttest %f, \tcontrol %f", reason, notePerf.calRatio(action), globalPerf.calRatio(action)));
             }
         }
+
 
     }
 }
