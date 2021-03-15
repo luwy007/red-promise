@@ -379,9 +379,15 @@ public class DataAnalysis {
         specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/fupeng.csv");
         specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/fupeng2.csv");
         specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/wushi japan.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/tuba first.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/tuba third.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/yangling.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/yangling2.csv");
+        specNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/jingyue.csv");
         Map<String, Performance> globalNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/global.csv");
 //        globalNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/wushi.csv");
 //        globalNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/wushi eco.csv");
+//        globalNotePerf = da.convertToReasonPerformanceMap("/Users/luwenyang/Downloads/tuba2.csv");
 
 
         Map<REASON, Performance> mergedSpecNotePref = da.mergePerformance(specNotePerf);

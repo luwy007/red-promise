@@ -218,28 +218,25 @@ public class Test {
         return Math.abs(pk.hashCode() % 9);
     }
 
+    @Data
+    private static class T {
+        String value;
+    }
+
     public static void main(String[] args) throws Exception {
-        String content = "41a29d08-7585-11eb-b85d-525400dcf445";
-        content = "87e6cdd3-74d5-11eb-b85d-525400dcf445#tracking";
-        String pattern = ".*\\-.*\\-.*\\-.*\\-.*";
-        String patternAd = ".*\\-.*\\-.*\\-.*\\-.*#tracking";
-        boolean isMatch = Pattern.matches(pattern, content);
-        System.out.println(isMatch);
-        isMatch = Pattern.matches(patternAd, content);
-        System.out.println(isMatch);
-//        List<Integer> newChipPosList = new ArrayList<>();
-//        newChipPosList.add(1);
-//        newChipPosList.add(3);
-//        newChipPosList.add(5);
-//        newChipPosList.add(7);
-//        System.out.println(newChipPosList);
-//        newChipPosList = newChipPosList.stream().map(pos -> pos += 10).collect(Collectors.toList());
-//        System.out.println(newChipPosList);
+
+        List<String> numList = new ArrayList<>();
+        numList.add(null);
+        numList.add("123");
+        Iterator iter = numList.iterator();
+        while(iter.hasNext()){
+            System.out.println(iter.next());
+        }
 
 
     }
 
-    // position diff and count, eg. {5_30,4_20}
+    // position diff and count, eg. {5_30,4_20}6039f9e2000000000102a80f
     public static ArrayList<String> evaluate(List<String> timeAndPositionList) {
         Map<String, Integer> timeStampPositionMap = new HashMap<>();
         Map<String, String> timeAndPosMap = new HashMap<>();
@@ -257,7 +254,7 @@ public class Test {
                         .collect(Collectors.toList());
         Map<Integer, Integer> diffCntMap = diffCnt(sortedPosList);
 
-        ArrayList<String> result =  new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
         result.addAll(diffCntMap.entrySet().stream()
                 .map(entry -> String.valueOf(entry.getKey() + "_" + entry.getValue()))
                 .collect(Collectors.toList()));
