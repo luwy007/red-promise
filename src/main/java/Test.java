@@ -1,184 +1,235 @@
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-import com.google.common.collect.ImmutableMap;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.xiaohongshu.sns.enums.IdType;
+import com.xiaohongshu.sns.exception.IdMappingException;
 import com.xiaohongshu.sns.util.IdMapping;
-import javafx.util.Pair;
 import lombok.Data;
+import org.springframework.util.StringUtils;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.hash;
 
 public class Test {
 
 
-    private static final Integer CACHE_EXPIRE_TIME = 10;
-    private static final Integer CACHE_SIZE = 1000;
-
-    public static LoadingCache<NoteIndex, String> cache = CacheBuilder.newBuilder()
-            .maximumSize(CACHE_SIZE)
-            .refreshAfterWrite(CACHE_EXPIRE_TIME, TimeUnit.SECONDS)
-            .build(new CacheLoader<NoteIndex, String>() {
-                @Override
-                public String load(NoteIndex noteId) {
-                    return getBoostNote(noteId);
-                }
-
-                private String getBoostNote(NoteIndex noteId) {
-                    return String.valueOf(System.currentTimeMillis());
-                }
-            });
-
-
-    public static double wilsonUpperBoundary(double click, double imp) {
-        if (click > imp) {
-            return 1;
+    public static List<Double> generateVec(int len, double avg, double var) {
+        Random r = new Random();
+        List<Double> vec = new ArrayList<>();
+        for (int i = 0; i < len; i++) {
+            vec.add(r.nextGaussian() * var + avg);
         }
-        imp += 0.01;
-        click += 0.01;
-        double ratio = click / imp;
-        double numerator = ratio + 0.5 * 3.84 / imp + 1.96 * Math.sqrt(ratio * (1 - ratio) / imp + 0.96 / imp / imp);
-        double denominator = 1 + 3.84 / imp;
-        return numerator / denominator;
+        return vec;
     }
 
-    private static String fillSqlQuery(String sqlPrefix, List<String> boardIdList) {
-        String sql = null;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        //限定时间
-        sqlPrefix = sqlPrefix.replace("{ds}", df.format(new Date((new Date()).getTime() - 10l * 60 * 60 * 24 * 1000)));
-        System.out.println(sqlPrefix);
-        StringBuilder sqlSb = new StringBuilder();
-        sqlSb.append(sqlPrefix);
-        sqlSb.append("(" + String.join(",", boardIdList) + ")");
-        sql = sqlSb.toString();
-        return sql;
+    public static double dot(List<Double> vec1, List<Double> vec2) {
+        if (vec1 == null || vec2 == null || vec1.size() != vec2.size()) {
+            return -10000000000.0;
+        }
+        double result = 0;
+        for (int i = 0; i < vec1.size(); i++) {
+            result += vec1.get(i) * vec2.get(i);
+        }
+        return result;
     }
 
-
-    private static double wilsonUpper(int num_pv, int num_click) {
-        if (num_pv * num_click == 0 || num_pv < num_click) {
-            return 0.f;
-        }
-        double score = 0.f;
-        double z = 0.96f;
-        int n = num_pv;
-        double p = 1.0f * num_click / num_pv;
-        score = (p + z * z / (2.f * n) + z * Math.sqrt((p * (1.0f - p) + z * z / (4.f * n)) / n)) / (1.f + z * z / n);
-        return score;
+    public static double cos(List<Double> vec1, List<Double> vec2) {
+        return dot(vec1, vec2) / Math.sqrt(dot(vec1, vec1) * dot(vec2, vec2));
     }
 
-    private static double wilsonLower(int num_pv, int num_click) {
-        if (num_pv * num_click == 0 || num_pv < num_click) {
-            return 0.f;
-        }
-        double score = 0.f;
-        double z = 0.96f;
-        int n = num_pv;
-        double p = 1.0f * num_click / num_pv;
-        score = (p + z * z / (2.f * n) - z * Math.sqrt((p * (1.0f - p) + z * z / (4.f * n)) / n)) / (1.f + z * z / n);
-        return score;
+    public static double guassianNum() {
+        Random r = new Random();
+        double num = r.nextGaussian();
+        return num;
     }
 
+    @lombok.Data
+    public static class Data {
+        int a;
+    }
 
-    private static List<Integer> l = Arrays.asList(1, 2, 3, 4, 5);
-
-
-    private static void func1() {
-        CountDownLatch latch = new CountDownLatch(5);
-        for (int i = 0; i < 5; i++) {
-            Service service = new Service(latch, i);
-            Runnable task = () -> service.exec();
-            Thread thread = new Thread(task);
-            thread.start();
-        }
-
-        System.out.println("main thread await. ");
+    public static long oidToLong(String oid) {
+        long result = 0;
         try {
-            latch.await(10, TimeUnit.MILLISECONDS);
-        } catch (Exception e) {
+            result = IdMapping.oidToLong(oid, IdType.NOTE);
+        } catch (IdMappingException e) {
             e.printStackTrace();
         }
-        System.out.println("main thread finishes await. ");
-        int sum = l.stream().mapToInt(i -> i).sum();
-        System.out.println(sum);
+        return result;
     }
 
-    private static void func2() {
-        System.out.println("func2 start");
+    public static String longToOid(long id) {
+        String result = "";
+        try {
+            result = IdMapping.longToOid(id);
+        } catch (IdMappingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    @Data
-    public static class NoteIndex {
+    /**
+     * 保量计划
+     */
+    @lombok.Data
+    public static class ImpGuaranteePlan {
+        /**
+         * 以下参数，是从mysql or apollo中默认读取的
+         */
         String noteId;
-        String authorId;
+        // 计划起始时间
+        Date beginDate = new Date();
+        // 计划结束时间
+        Date endDate = new Date();
+        // 此次定保的目标曝光量
+        float quota = 0;
+        // 累积历史所有定保流量，得出的目标曝光量。
+        // 譬如历史累积投放100w，此次新定保流量是10w，则defaultImpGoal是110w
+        float defaultImpGoal = 1000;
+        // 自调节投放目标量，<0时，表示不生效
+        float selfAdjustableImpGoal = -1;
+        // 人为指定boost系数，覆盖自动化计算结果
+        float defaultBoost = -1.0f;
 
-        @Override
-        public int hashCode() {
-            return this.noteId.hashCode();
-        }
+        // 记录上一次更新plan的boost系数时，已经有的曝光次数
+        int lastUpdatedImp = 0;
+        // 记录此plan被更新次数
+        int updateCnt = 0;
+
     }
 
 
-    private static int seed(int maxSeed) {
-        double rand = Math.random();
-        int i = 0;
-        for (; i <= maxSeed; i++) {
-            if (i * (1.0 / maxSeed) > rand) {
-                break;
+    private static final Map<String, Float> hourImpRatio = new HashMap<>();
+
+
+    static {
+        hourImpRatio.put("00", 4.44f);
+        hourImpRatio.put("01", 2.40f);
+        hourImpRatio.put("02", 1.31f);
+        hourImpRatio.put("03", 0.83f);
+        hourImpRatio.put("04", 0.64f);
+        hourImpRatio.put("05", 0.67f);
+        hourImpRatio.put("06", 1.21f);
+        hourImpRatio.put("07", 2.16f);
+        hourImpRatio.put("08", 3.04f);
+        hourImpRatio.put("09", 3.78f);
+        hourImpRatio.put("10", 4.24f);
+        hourImpRatio.put("11", 4.52f);
+        hourImpRatio.put("12", 5.33f);
+        hourImpRatio.put("13", 5.24f);
+        hourImpRatio.put("14", 4.92f);
+        hourImpRatio.put("15", 5.16f);
+        hourImpRatio.put("16", 5.33f);
+        hourImpRatio.put("17", 5.17f);
+        hourImpRatio.put("18", 5.11f);
+        hourImpRatio.put("19", 5.93f);
+        hourImpRatio.put("20", 6.50f);
+        hourImpRatio.put("21", 7.30f);
+        hourImpRatio.put("22", 8.04f);
+        hourImpRatio.put("23", 6.73f);
+    }
+
+
+    /**
+     * 计算投放时间进度
+     *
+     * @return
+     */
+    private static float calTimePace(ImpGuaranteePlan plan) {
+        SimpleDateFormat hhFormatter = new SimpleDateFormat("HH");
+        float total = 0.0f;
+        float tillNow = 0.0f;
+        Long time = plan.getBeginDate().getTime();
+        Long nowTime = (new Date()).getTime();
+        while (time < plan.getEndDate().getTime()) {
+            float timePeriod = hourImpRatio.get(hhFormatter.format(new Date(time)));
+            total += timePeriod;
+            tillNow += time < nowTime ? timePeriod : 0;
+            time += 60 * 60 * 1000L;
+        }
+
+        if (total <= 0) {
+            return 1000;
+        }
+
+        return tillNow / total;
+    }
+
+
+    public static String function2(String str) {
+        int n = str.length();
+        String res = "";
+        boolean[][] f = new boolean[n][n];
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i <= j; i++) {
+                if (i == j) f[i][j] = true;
+                if (j > 0 && str.charAt(i) == str.charAt(j)) {
+                    f[i][j] = f[i + 1][j - 1];
+                }
+                if (f[i][j]) {
+                    if (res.length() < (j - i + 1)) {
+                        res = str.substring(i, j + 1);
+                    }
+                }
             }
         }
-        return i;
+        return res;
+
     }
 
-    private static void assureMinInterval(List<Integer> newChipPosList, Integer minInterval) {
-        if (newChipPosList.size() <= 1 || minInterval < 1) {
-            return;
-        }
-        int lastIndex = newChipPosList.get(0);
-        for (int i = 1; i < newChipPosList.size(); i++) {
-            int thisIndex = newChipPosList.get(i);
-            if (thisIndex - lastIndex - 1 < minInterval) {
-                newChipPosList.set(i, lastIndex + minInterval + 1);
+
+    public static String function(String str) {
+        int n = str.length();
+        String res = "";
+        boolean[][] f = new boolean[n][n];
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i <= j; i++) {
+                if (i == j) f[i][j] = true;
+                if (j > 0 && i + 1 < j && str.charAt(i) == str.charAt(j)) {
+                    f[i][j] = f[i + 1][j - 1];
+                }
+                if (i + 1 == j && j > 0) {
+                    f[i][j] = str.charAt(i) == str.charAt(j);
+                }
+                if (f[i][j]) {
+                    if (res.length() < (j - i + 1)) {
+                        res = str.substring(i, j + 1);
+                    }
+                }
             }
-            lastIndex = newChipPosList.get(i);
         }
+        return res;
+
     }
 
-    private static class RetrievalItem {
-    }
-
-    private static Double calMergeScore(RetrievalItem retrievalItem, double cesPower) {
-        return 0.0;
-    }
-
-
-    private static Comparator mergeScoreCompartor = new Comparator<Double>() {
-        @Override
-        public int compare(Double o1, Double o2) {
-            return o1 - o2 > 0 ? -1 : 1;
+    /**
+     * 计算wilson_boundary/ctr
+     */
+    private static float calBoostRatio(float impression, float click, boolean isUpper, double z) {
+        if (impression * click == 0 || impression < click) {
+            return 2.0f;
         }
-    };
+        float ctr = (click + 0.01f) / (impression + 0.1f);
+        float ratio = wilsonBoundary(impression, click, isUpper, z) / ctr;
 
-    public enum Status {
-        CLOSED, BOOST, FOLLOW_PREFER, ULTRA_BOOST, RE_TARGETING
+        // 对部分ctr较好的笔记，进行boost。
+        if (isUpper) {
+            double ctrBase = 0.15;
+            ratio *= Math.max(click / (impression + 1) / ctrBase, 1.0);
+        }
+        return ratio;
     }
 
-    private static enum Type {
-        A, B, C;
-    }
 
     /**
      * 计算wilson边界
@@ -194,173 +245,290 @@ public class Test {
         return score;
     }
 
-    /**
-     * 计算wilson_boundary/ctr
-     */
-    private static float calBoostRatio(float impression, float click, boolean isUpper, double z) {
-        if (impression == 0 || impression < click) {
-            return 2.0f;
+    private static double calWilsonVauleModel(float p, float n) {
+        return (p + (2.0 / n) - (1.0 / n) * Math.sqrt(4.0 * n * (1.0 - p) * p + 4.0)) / (1.0 + 4.0 / n);
+    }
+
+
+    private static Map<String, String> parseForMap() {
+        if (false) {
+            return new HashMap<>();
         }
-        float ctr = (click + 0.01f) / (impression + 0.1f);
-        float ratio = wilsonBoundary(impression, click, isUpper, z) / ctr;
-
-        // 对部分ctr较好的笔记，进行boost。
-        if (isUpper) {
-            double ctrBase = 0.15;
-            ratio *= Math.max(click / (impression + 1) / ctrBase, 1.0);
-        }
-        return ratio;
-    }
-
-    private static int getPartitionId(final String pk) {
-        return Math.abs(pk.hashCode() % 9);
-    }
-
-    public static void main(String[] args) throws Exception {
-
-        System.out.println(getPartitionId("600a6b7300000000010028bf"));
-
-
-        System.out.println("60094b7a0000000001001107 :" + getPartitionId("60094b7a0000000001001107f"));
-        System.out.println("601101610000000001000122 :" + getPartitionId("601101610000000001000122f"));
-        System.out.println("600a6b7300000000010028bf :" + getPartitionId("600a6b7300000000010028bff"));
-        System.out.println("601132f6000000000100b0f7 :" + getPartitionId("601132f6000000000100b0f7f"));
-        System.out.println("601265ec000000000100a155 :" + getPartitionId("601265ec000000000100a155f"));
-        System.out.println("5ff2f61e00000000010074f9 :" + getPartitionId("5ff2f61e00000000010074f9f"));
-        System.out.println("60059d43000000000101d4cd :" + getPartitionId("60059d43000000000101d4cdf"));
-        System.out.println("600e974b000000000101d22b :" + getPartitionId("600e974b000000000101d22bf"));
-        System.out.println("600d39f8000000000100b9a0 :" + getPartitionId("600d39f8000000000100b9a0f"));
-        System.out.println("600d3bb000000000010049e2 :" + getPartitionId("600d3bb000000000010049e2f"));
-        System.out.println("60091b0a000000000100221b :" + getPartitionId("60091b0a000000000100221bf"));
-        System.out.println("5fe6e2550000000001002ccb :" + getPartitionId("5fe6e2550000000001002ccbf"));
-        System.out.println("600d073f000000000100873a :" + getPartitionId("600d073f000000000100873af"));
-        System.out.println("6007953a0000000001009adf :" + getPartitionId("6007953a0000000001009adff"));
-        System.out.println("6002d4df000000000101f6b4 :" + getPartitionId("6002d4df000000000101f6b4f"));
-        System.out.println("5ffaa9a80000000001002e70 :" + getPartitionId("5ffaa9a80000000001002e70f"));
-        System.out.println("5ff5378c000000000100aa7d :" + getPartitionId("5ff5378c000000000100aa7df"));
-        System.out.println("5fe36063000000000101d99b :" + getPartitionId("5fe36063000000000101d99bf"));
-        System.out.println("5fdf61fe000000000100b4bb :" + getPartitionId("5fdf61fe000000000100b4bbf"));
-        System.out.println("60113284000000000100ae57 :" + getPartitionId("60113284000000000100ae57f"));
-        System.out.println("60138ab800000000010071f4 :" + getPartitionId("60138ab800000000010071f4f"));
-        System.out.println("60112dbc0000000001006cc0 :" + getPartitionId("60112dbc0000000001006cc0f"));
-        System.out.println("600fc590000000000101d73e :" + getPartitionId("600fc590000000000101d73ef"));
-        System.out.println("600e1ad3000000000101cfd0 :" + getPartitionId("600e1ad3000000000101cfd0f"));
-        System.out.println("6007a0520000000001008545 :" + getPartitionId("6007a0520000000001008545f"));
-        System.out.println("6006ce280000000001002de3 :" + getPartitionId("6006ce280000000001002de3f"));
-    }
-
-    private static void smoothScoreList(List<Double> scoreList, int pos) {
-        scoreList.set(pos, Math.max((scoreList.get(pos - 1) + scoreList.get(pos + 1)) / 2, scoreList.get(pos)));
-    }
-
-
-    private static float calNewBoostRatio(Date begindate, Date endDate, float oldBoost, float newBoost) {
-        float boost = 1.0f;
         try {
-            Date now = new Date();
-            boost = (oldBoost * (endDate.getTime() - now.getTime())
-                    + newBoost * (now.getTime() - begindate.getTime()))
-                    / (endDate.getTime() - begindate.getTime() + 1);
+            return new HashMap<>();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        boost = Math.max(oldBoost, boost);
-        return boost;
+        return null;
     }
 
+    private static int calImpGoal(int predImp, List<Double> mags, List<Integer> impSegs) {
+        //加一个最大边界
+        List<Integer> tmpImpSegs = new ArrayList<>();
+        List<Double> tmpMags = new ArrayList<>();
+        tmpImpSegs.addAll(impSegs);
+        tmpMags.addAll(mags);
+        mags = tmpMags;
+        impSegs = tmpImpSegs;
+        impSegs.add(1000000000);
 
-    private static void updatePos() {
-
-        List<Integer> chipsSortedScoreList = Arrays.asList(100, 80, 50, 30);
-        List<Integer> normalSortedScoreList = Arrays.asList(500, 200, 90, 60, 10, 5);
-
-
-        //合并feed序列 & 薯条序列，获得薯条的浮动固定位
-        int indexNormal = 0;
-        int indexChips = 0;
-        List<Integer> newPositionForChips = new ArrayList<>();
-        while (indexChips < chipsSortedScoreList.size()
-                && indexNormal < 100) {
-            if (chipsSortedScoreList.get(indexChips) >= normalSortedScoreList.get(indexNormal)) {
-                newPositionForChips.add(indexNormal + indexChips);
-                indexChips++;
-            } else {
-                indexNormal++;
-            }
+        for (int i = mags.size(); i < impSegs.size(); i++) {
+            mags.add(1.0);
         }
-        while (indexChips++ < chipsSortedScoreList.size()) {
-            newPositionForChips.add(Integer.MAX_VALUE);
+        double impGoal = 0;
+
+        if (predImp < impSegs.get(0)) {
+            impGoal = predImp * mags.get(0);
+            return (int) impGoal;
+        } else {
+            impGoal = impSegs.get(0) * mags.get(0);
+
         }
 
-        // 插入非薯条广告，更新浮动固定位
-        int indexAd = 0;
-        List<Integer> notChipsPos = Arrays.asList(2, 5);
-        indexChips = 0;
-        while (indexAd < notChipsPos.size()) {
-            int adPos = notChipsPos.get(indexAd);
-            while (adPos > newPositionForChips.get(indexChips)
-                    && indexChips < newPositionForChips.size()) {
-                indexChips++;
-            }
-            if (newPositionForChips.size() <= indexChips) {
+        int i = 1;
+        for (; i < impSegs.size(); i++) {
+            if (predImp < impSegs.get(i)) {
                 break;
             }
-            //在indexChips位置的薯条，位置向后顺移indexAd + 1
-            if (adPos <= newPositionForChips.get(indexChips)) {
-                newPositionForChips.set(indexChips, newPositionForChips.get(indexChips) + indexAd + 1);
-                indexAd++;
-            }
+            impGoal += calImpGoal(impSegs.get(i - 1), impSegs.get(i), impSegs.get(i) - impSegs.get(i - 1), mags.get(i - 1), mags.get(i));
         }
 
-        System.out.println(newPositionForChips);
+        impGoal += calImpGoal(impSegs.get(i - 1), impSegs.get(i), predImp - impSegs.get(i - 1), mags.get(i - 1), mags.get(i));
 
 
+        return (int) impGoal;
+    }
+
+    private static int calImpGoal(int smallImpBorder, int bigImpBorder, int impSeg, double lastMag, double thisMag) {
+        double avgMag = (2 * lastMag - (lastMag - thisMag) * impSeg / (bigImpBorder - smallImpBorder)) / 2;
+        int impGoal = (int) (impSeg * avgMag);
+        return impGoal;
+    }
+
+
+    private static void generateLeftSql(String sql, Map<String, String> feaMap) {
+        for (String feaKey : feaMap.keySet()) {
+            System.out.println(sql.replace("{fea}", feaMap.get(feaKey)).replace("{sub_fea}", feaKey));
+        }
+    }
+
+    private static void generateSql(String sql, List<String> feaList) {
+        for (String feaKey : feaList) {
+            System.out.println(sql.replace("{sub_fea}", feaKey));
+        }
+    }
+
+    @lombok.Data
+    static class NoteInfo {
+        double score;
+
+        public NoteInfo(double score) {
+            this.score = score;
+        }
+    }
+
+    public static String getNDaysBeforeDs(int nDays) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date nDaysBefore = new Date((new Date()).getTime() + nDays * 24 * 3600 * 1000L);
+        return sdf.format(nDaysBefore);
+    }
+
+    private static final double EARTH_RADIUS = 6378137;//赤道半径
+
+
+    private static double rad(double d) {
+        return d * Math.PI / 180.0;
+    }
+
+    public static double getDistance(double lon1, double lat1, double lon2, double lat2) {
+        double radLat1 = rad(lat1);
+        double radLat2 = rad(lat2);
+        double a = radLat1 - radLat2;
+        double b = rad(lon1) - rad(lon2);
+        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)
+                + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        s = s * EARTH_RADIUS;
+        return s;//单位米
+    }
+
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+
+    public static float evaluate(List<String> dateNumList, String date, float cnt, int days) {
+        float ratio = 1.0f;
+        String daysBeforeDate = "2000-01-01";
+        try {
+            daysBeforeDate = sdf.format(new Date((sdf.parse(date)).getTime() - days * 24 * 3600 * 1000L));
+        } catch (Exception e) {
+
+        }
+        dateNumList.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        boolean found = false;
+        for (String dateNum : dateNumList) {
+            String[] dateNumStr = dateNum.split("_");
+            if (daysBeforeDate.compareTo(dateNumStr[0]) > 0) {
+                continue;
+            }
+
+            found = true;
+            if (daysBeforeDate.compareTo(dateNumStr[0]) == 0) {
+                ratio = cnt / Integer.parseInt(dateNumStr[1]);
+                break;
+            } else {
+                ratio = cnt;
+                break;
+            }
+        }
+        return found ? ratio : cnt;
+    }
+
+
+    public static Double evaluate(Double click, Double imp) {
+        Double result = -1.0;
+        if (click == null || imp == null) {
+            return result;
+        } else if (click > imp) {
+            result = 1.0;
+        } else {
+            double ratio = click / imp;
+            double numerator = ratio + 0.5 * 3.84 / imp - 1.96 * Math.sqrt(ratio * (1 - ratio) / imp + 0.96 / imp / imp);
+            double denominator = 1 + 3.84 / imp;
+            result = numerator / denominator;
+        }
+
+        return result;
+    }
+
+    @lombok.Data
+    public static class Query {
+        int num = 0;
+
+        public Query(int num) {
+            this.num = num;
+        }
+    }
+
+    private void test(int n) {
+        cnt += n;
+    }
+
+    private void test2() {
+        test(20);
+    }
+
+    private static int cnt = 0;
+
+
+    public static String join(List<String> strList, String joiner) {
+        StringBuilder sb = new StringBuilder();
+        if (strList == null || strList.size() < 1) {
+            return "";
+        }
+        for (int i = 0; i < strList.size() - 1; i++) {
+            sb.append(strList.get(i)).append(joiner);
+        }
+        sb.append(strList.get(strList.size() - 1));
+        return sb.toString();
+    }
+
+    private static void filterTop20() {
+
+        String line = "";
+        String splitBy = ",";
+        Map<String, Integer> mainTagCounter = new HashMap<>();
+        Set<String> opNames = new HashSet<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("/Users/yang/Downloads/data.csv"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("/Users/yang/Downloads/data_filtered.csv"));
+
+
+//            line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                line = line.replace("\"", "");
+                String[] items = line.split(splitBy);
+                opNames.add(items[0]);
+                mainTagCounter.put(items[0], mainTagCounter.getOrDefault(items[0], 0) + 1);
+                if (mainTagCounter.get(items[0]) > 20) {
+                    continue;
+                } else {
+                    bw.write(line + "\n");
+                }
+            }
+            bw.close();
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public static void main(String[] args) {
+
+
+        filterTop20();
+        if (true) {
+            return;
+        }
+
+        List<String> noteIdList = Arrays.asList();
+        System.out.println(new HashSet(noteIdList).size());
+
+
+        try {
+            System.out.println(String.valueOf(IdMapping.oidToLong("62579dd9000000000101fe5e", IdType.ALBUM)));
+            System.out.println(String.valueOf(IdMapping.oidToLong("5628cbb182718c5e15f371cb", IdType.USER)));
+            System.out.println(String.valueOf(IdMapping.oidToLong("62988a35000000002103fd48", IdType.NOTE)));
+
+
+            System.out.println(String.valueOf(IdMapping.longToOid(279944196772028195L)));
+            System.out.println(String.valueOf(IdMapping.longToOid(279944600784190238L)));
+
+
+            System.out.println(String.valueOf(IdMapping.longToOid(2305844687369329682L)));
+            Set<String> userIdSet = new HashSet<>(Arrays.asList());
+            String stmt = "SELECT noteId, " +
+                    "       ((realQuota- historyQuota)/incQuota) AS imp_pace, " +
+                    "       (TIMESTAMPDIFF(MINUTE, startTime, now())/ TIMESTAMPDIFF(MINUTE, startTime, endTime)) AS time_pace, " +
+                    "       (realQuota- historyQuota) AS imp, " +
+                    "       incQuota, " +
+                    "       startTime, " +
+                    "       endTime " +
+                    "FROM note_push " +
+                    "WHERE endTime>now() " +
+                    "  AND line='gdb'" +
+                    "  AND historyQuota>=0 " +
+                    "  AND (TIMESTAMPDIFF(MINUTE, startTime, now())/ TIMESTAMPDIFF(MINUTE, startTime, endTime))>0.1 " +
+                    "  AND ((realQuota- historyQuota)/incQuota)/(TIMESTAMPDIFF(MINUTE, startTime, now())/ TIMESTAMPDIFF(MINUTE, startTime, endTime))<{paceThreshold}" +
+                    "  AND status=1;";
+            stmt = stmt.replace("{paceThreshold}", String.valueOf(0.1f));
+            System.out.println(stmt);
+            System.out.println(stmt);
+
+//            Set<Long> userSet = new HashSet<>(Arrays.asList(144119555772416955L,
+//                    144133942305598221L,
+//                    207815530839950585L));
+//            for (String s : userIdSet) {
 //
-//        //结合薯广初始固定位，更新浮动固定位
-//        indexChips = 0;
-//        for (Pair<Integer, RetrievalItem> pair : orderedAdsItems) {
-//            if (pair.second.isChips) {
-//                pair.first = Math.min(pair.first, newPositionForChips.get(indexChips));
-//                indexChips += 1;
+//                if(!userSet.contains(IdMapping.oidToLong(s, IdType.USER))){
+//                    System.out.println(s);
+//                }
+////                System.out.println(String.valueOf(IdMapping.oidToLong(s, IdType.USER)));
 //            }
-//            if (newPositionForChips.get(indexChips) > startIndex + 80) {
-//                break;
+
+//            List<Long> ids = Arrays.asList();
+//            for (Long id : ids) {
+//                System.out.println(String.valueOf(IdMapping.longToOid(id)));
 //            }
-//        }
-    }
 
-
-    public static class Service {
-        private CountDownLatch latch;
-        private Integer index;
-
-        public Service(CountDownLatch latch, int index) {
-            this.latch = latch;
-            this.index = index;
-        }
-
-        public void exec() {
-            try {
-                System.out.println(Thread.currentThread().getName() + " execute task. ");
-                sleep(2);
-                l.set(index, l.get(index) + 1);
-                System.out.println(Thread.currentThread().getName() + " finished task. " + l.get(index));
-            } finally {
-                latch.countDown();
-            }
-        }
-
-        private void sleep(int seconds) {
-            try {
-                TimeUnit.SECONDS.sleep(seconds);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        } catch (IdMappingException e) {
+            e.printStackTrace();
         }
     }
-
-
 }
-
-
-
-
